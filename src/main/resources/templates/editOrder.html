@@ -1,10 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Изменение заказа</title>
+    <style type="text/css">
+        div
+        {
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
+<div>
+    <form id="edit-form" th:action="@{/edit(id=${order.id})}" th:method="post">
+        <h2>Изменение номера заказа</h2>
 
+        <div class="row">
+            <label for="order-number-input">Номер заказа:</label>
+            <input id="order-number-input" name="orderNumber" type="text"
+                   th:value="${order.orderNumber}" required="required"/>
+        </div>
+
+        <div class="row">
+            <button type="submit">Сохранить</button>
+        </div>
+    </form>
+</div>
 </body>
 </html>

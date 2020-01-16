@@ -13,8 +13,8 @@ import java.time.LocalDate;
 public class OrderDetails {
 
     @Id
-    @GeneratedValue
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private long id;
 
     private String name;
     private String comment;

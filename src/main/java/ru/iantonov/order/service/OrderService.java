@@ -2,15 +2,16 @@ package ru.iantonov.order.service;
 
 import org.springframework.stereotype.Service;
 import ru.iantonov.order.domain.Order;
+import ru.iantonov.order.repository.OrderRepository;
 
 import java.util.List;
 
 @Service
 public class OrderService {
 
-    private final OrderService repository;
+    private final OrderRepository repository;
 
-    public OrderService(OrderService repository) {
+    public OrderService(OrderRepository repository) {
         this.repository = repository;
     }
 
@@ -18,19 +19,21 @@ public class OrderService {
         return repository.findAll();
     }
 
-    public Order findById(Long id){
-        return repository.findById(id);
+    public Order findById(Long id) throws Exception {
+        return repository.findById(id).orElseThrow(Exception::new);
     }
 
     public Order add(Order order){
-        return repository.add(order);
+        return repository.save(order);
     }
 
-    public void delete(Long id){
-        repository.delete(id);
+    public void deleteById(Long id){
+        repository.deleteById(id);
     }
 
-    public void update(Long id, Order order){
-        repository.update(id, order);
+    public Order updateById(Long id, Order order) throws Exception {
+        Order orderOld = findById(id);
+        order.setId(orderOld.getId());
+        return repository.save(order);
     }
 }
