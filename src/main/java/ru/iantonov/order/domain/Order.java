@@ -18,7 +18,7 @@ public class Order {
     @Column(name = "order_number", unique = true, nullable = false)
     private String orderNumber;
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_details_id")
     private OrderDetails orderDetails;
 
