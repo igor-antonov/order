@@ -15,7 +15,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
 
-    @Column(name = "order_number")
+    @Column(name = "order_number", unique = true, nullable = false)
     private String orderNumber;
 
     @OneToOne(cascade = CascadeType.MERGE)

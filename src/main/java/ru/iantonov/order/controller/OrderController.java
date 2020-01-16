@@ -1,7 +1,5 @@
 package ru.iantonov.order.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,13 +9,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ru.iantonov.order.domain.Order;
 import ru.iantonov.order.service.OrderService;
 
-import java.util.Arrays;
-
 @Controller
 public class OrderController {
 
     private final OrderService orderService;
-    private final Logger log = LoggerFactory.getLogger(OrderController.class);
 
     public OrderController(OrderService orderService) {
         this.orderService = orderService;
@@ -51,8 +46,6 @@ public class OrderController {
         }
         catch (Exception e){
             model.addAttribute("message", e.getMessage());
-            log.error(e.getMessage());
-            log.error(Arrays.toString(e.getStackTrace()));
             return "error";
         }
     }
@@ -67,11 +60,7 @@ public class OrderController {
         }
         catch (Exception e){
             model.addAttribute("message", e.getMessage());
-            log.error(e.getMessage());
-            log.error(Arrays.toString(e.getStackTrace()));
             return "error";
         }
     }
-
-
 }

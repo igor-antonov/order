@@ -23,11 +23,11 @@ public class OrderDetailsService {
         return repository.findById(id).orElseThrow(Exception::new);
     }
 
-    public OrderDetails add(OrderDetails orderDetails){
+    public OrderDetails save(OrderDetails orderDetails){
         return repository.save(orderDetails);
     }
 
-    public void delete(Long id){
+    public void deleteById(Long id){
         repository.deleteById(id);
     }
 

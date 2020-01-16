@@ -22,7 +22,7 @@ public class OrderDetails {
     @Column(name = "creation_date")
     private LocalDate creationDate;
 
-    public OrderDetails(String name, String comment, LocalDate creationDate) {
+    public OrderDetails(String name, String comment) {
         this.name = name;
         this.comment = comment;
         this.creationDate = LocalDate.now();
