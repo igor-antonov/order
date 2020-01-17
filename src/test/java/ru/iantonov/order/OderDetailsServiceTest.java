@@ -12,7 +12,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.iantonov.order.domain.Order;
 import ru.iantonov.order.domain.OrderDetails;
+import ru.iantonov.order.repository.OrderDetailsRepository;
 import ru.iantonov.order.repository.OrderRepository;
+import ru.iantonov.order.service.OrderDetailsService;
 import ru.iantonov.order.service.OrderService;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -29,23 +31,23 @@ import static org.mockito.BDDMockito.given;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class OderServiceTest {
+public class OderDetailsServiceTest {
     @MockBean
-    private OrderRepository orderRepository;
+    private OrderDetailsRepository repository;
     @Autowired
-    private OrderService orderService;
+    private OrderDetailsService detailsService;
     private Order order;
+    private OrderDetails orderDetails;
 
     @Before
     public void prepare() {
-        OrderDetails orderDetails = new OrderDetails("багаж", "доставлен");
-        order = new Order("q123");
-        order.setOrderDetails(orderDetails);
+        order = new Order();
+        orderDetails = new OrderDetails("телефон", 800, order);
     }
 
     @Test
     public void findAll() {
-        given(orderRepository.findAll()).willReturn(Collections.singletonList(order));
-        assertEquals(orderService.findAll().size(), 1);
+        given(repository.findByOrderId(1L)).willReturn(Collections.singletonList(orderDetails));
+        assertEquals(detailsService.findByOrderId(1L).size(), 1);
     }
 }

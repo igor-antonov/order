@@ -13,11 +13,12 @@ import ru.iantonov.order.repository.OrderDetailsRepository;
 import ru.iantonov.order.repository.OrderRepository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @RunWith(SpringRunner.class)
 @ComponentScan
 @DataJpaTest
-public class OrderRepositoryTest {
+public class OrderDetailsRepositoryTest {
 
     @Autowired
     private OrderRepository orderRepository;
@@ -28,18 +29,15 @@ public class OrderRepositoryTest {
 
     @Before
     public void prepare(){
-        OrderDetails orderDetails = new OrderDetails("багаж", "доставлен");
-        order = new Order("q123");
-        order.setOrderDetails(orderDetails);
-        orderRepository.save(order);
+        order = orderRepository.save(new Order());
+        orderDetails = detailsRepository.save(new OrderDetails("телефон", 800, order));
     }
 
     @Test
-    public void delete(){
-        assertEquals(detailsRepository.findAll().size(), 1);
+    public void deleteOrderDetails(){
+        assertEquals(detailsRepository.findById(orderDetails.getId()).orElse(null), orderDetails);
         assertEquals(orderRepository.findAll().size(), 1);
-        orderRepository.delete(order);
-        assertEquals(detailsRepository.findAll().size(), 0);
-        assertEquals(orderRepository.findAll().size(), 0);
+        detailsRepository.deleteById(orderDetails.getId());
+        assertNull(detailsRepository.findById(orderDetails.getId()).orElse(null));
     }
 }

@@ -1,38 +1,64 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Детали заказа</title>
     <style type="text/css">
+        table,th,td
+        {
+            border:1px solid black;
+            background-color: azure;
+            color: darkgreen;
+        }
+        td
+        {
+            padding:5px;
+        }
         div
         {
             margin-top: 10px;
         }
     </style>
 </head>
+
 <body>
+<h2>Позиции заказа:</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Название</th>
+        <th>Стоимость</th>
+        <th>Действие1</th>
+        <th>Действие2</th>
+    </tr>
+    </thead>
+    <tbody >
+    <tr th:each="detail: ${orderDetails}">
+        <td th:text="${detail.name}"></td>
+        <td th:text="${detail.price}"></td>
+        <td><a th:href="@{/orderDetails/delete/{id}(orderId = ${detail.order.id}, id=${detail.id})}">Удалить</a></td>
+        <td><a th:href="@{/orderDetails/edit(id=${detail.id})}" href="editOrderDetails.html">Изменить</a></td>
+    </tr>
+    </tbody>
+</table>
+
 <div>
-    <form id="edit-form" th:action="@{/orderDetails/edit(id=${orderId})}" th:method="post">
+
+    <form id="add-form" th:action="@{/orderDetails/add}" th:method="post">
 
 
-        <h2>Изменение деталей заказа</h2>
+        <h2>Добавление новых позиций:</h2>
 
         <div class="row">
-            <label for="order-name-input">Название заказа:</label>
+            <label for="order-name-input">Название:</label>
             <input id="order-name-input" name="name" type="text"
-                   th:value="${orderDetails.name}" required="required"/>
+                   required="required"/>
         </div>
 
         <div class="row">
-            <label for="order-comment-input">Комментарий к заказу:</label>
-            <input id="order-comment-input" name="comment" type="text"
-                   th:value="${orderDetails.comment}" required="required"/>
-        </div>
-
-        <div class="row">
-            <label for="order-details-id"></label>
-            <input id="order-details-id" name="orderDetailsId" type="number"
-                   th:value="${orderDetails.id}" hidden="hidden"/>
+            <label for="order-price-input">Стоимость:</label>
+            <input id="order-price-input" name="price" type="number"
+                   required="required"/>
         </div>
 
         <div class="row">
@@ -50,5 +76,6 @@
         <a href="/">Назад</a>
     </div>
 </div>
+
 </body>
 </html>

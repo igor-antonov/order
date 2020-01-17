@@ -2,9 +2,10 @@ package ru.iantonov.order.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Data
 @Entity
@@ -17,14 +18,15 @@ public class OrderDetails {
     private long id;
 
     private String name;
-    private String comment;
+    private int price;
 
-    @Column(name = "creation_date")
-    private LocalDate creationDate;
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Order order;
 
-    public OrderDetails(String name, String comment) {
+    public OrderDetails(String name, int price, Order order) {
         this.name = name;
-        this.comment = comment;
-        this.creationDate = LocalDate.now();
+        this.price = price;
+        this.order = order;
     }
 }

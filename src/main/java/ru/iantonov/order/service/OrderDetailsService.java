@@ -15,8 +15,8 @@ public class OrderDetailsService {
         this.repository = repository;
     }
 
-    public List<OrderDetails> findAll(){
-        return repository.findAll();
+    public List<OrderDetails> findByOrderId(Long orderId){
+        return repository.findByOrderId(orderId);
     }
 
     public OrderDetails findById(Long id) throws Exception {

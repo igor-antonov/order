@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Изменение деталей заказа</title>
+    <style type="text/css">
+        div
+        {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <form id="edit-form" th:action="@{/orderDetails/edit(orderId = ${orderDetails.order.id}, id=${orderDetails.id})}" th:method="post">
+        <h2>Изменение деталей заказа:</h2>
+
+        <div class="row">
+            <label for="name-input">Название:</label>
+            <input id="name-input" name="name" type="text"
+                   th:value="${orderDetails.name}" required="required"/>
+        </div>
+
+        <div class="row">
+            <label for="price-input">Стоимость:</label>
+            <input id="price-input" name="price" type="number"
+                   th:value="${orderDetails.price}" required="required"/>
+        </div>
+
+        <div class="row">
+            <button type="submit">Сохранить</button>
+        </div>
+
+    </form>
+
+    <div class="row">
+        <a href="/">К списку заказов</a>
+    </div>
+</div>
+</body>
+</html>

@@ -27,6 +27,8 @@
     <thead>
     <tr>
         <th>Номер</th>
+        <th>Комментарий</th>
+        <th>Дата добавления</th>
         <th>Действие1</th>
         <th>Действие2</th>
         <th>Действие3</th>
@@ -34,25 +36,20 @@
     </thead>
     <tbody >
     <tr th:each="order: ${orders}">
-        <td th:text="${order.orderNumber}"></td>
+        <td th:text="${order.id}"></td>
+        <td th:text="${order.comment}"></td>
+        <td th:text="${order.creationDate}"></td>
         <td><a th:href="@{/delete/{id}(id=${order.id})}">Удалить</a></td>
         <td><a th:href="@{/edit(id=${order.id})}" href="editOrder.html">Изменить</a></td>
-        <td><a th:href="@{/orderDetails(orderId=${order.id})}" href="orderDetails.html">Детали</a></td>
+        <td><a th:href="@{order/{orderId}/orderDetails(orderId=${order.id})}" href="orderDetails.html">Детали</a></td>
     </tr>
     </tbody>
 </table>
 
 <div>
     <form id="add-form" th:action="@{/add}" th:method="post">
-        <h2>Добавление нового заказа:</h2>
-
         <div>
-            <label for="order-number-input">Номер заказа:</label>
-            <input id="order-number-input" name="orderNumber" type="text" required="required"/>
-        </div>
-
-        <div>
-            <button type="submit">Сохранить</button>
+            <button type="submit">Добавить новый заказ</button>
         </div>
     </form>
 </div>

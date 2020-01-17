@@ -25,8 +25,8 @@ public class OrderController {
     }
 
     @PostMapping("/add")
-    public String add(Model model, @RequestParam("orderNumber") String orderNumber) {
-        orderService.add(new Order(orderNumber));
+    public String add() {
+        orderService.add(new Order());
         return "redirect:/";
     }
 
@@ -52,9 +52,10 @@ public class OrderController {
 
     @PostMapping("/edit")
     public String edit(Model model,@RequestParam("id") long id,
-                       @RequestParam("orderNumber") String orderNumber) {
+                       @RequestParam("comment") String comment) {
         try {
-            Order order = new Order(orderNumber);
+            Order order = new Order();
+            order.setComment(comment);
             orderService.updateById(id, order);
             return "redirect:/";
         }

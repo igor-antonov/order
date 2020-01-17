@@ -7,6 +7,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface OrderDetailsRepository extends CrudRepository<OrderDetails, Long> {
-    List<OrderDetails> findAll();
+    List<OrderDetails> findByOrderId(Long id);
     Optional<OrderDetails> findById(Long id);
 }

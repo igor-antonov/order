@@ -13,16 +13,16 @@
 <body>
 <div>
     <form id="edit-form" th:action="@{/edit(id=${order.id})}" th:method="post">
-        <h2>Изменение номера заказа</h2>
+        <h2>Изменение заказа</h2>
 
         <div class="row">
-            <label for="order-number-input">Номер заказа:</label>
-            <input id="order-number-input" name="orderNumber" type="text"
-                   th:value="${order.orderNumber}" required="required"/>
+            <label for="order-comment-input">Комментарий:</label>
+            <input id="order-comment-input" name="comment" type="text"
+                   th:value="${order.comment}" required="required"/>
         </div>
 
         <div class="row">
-            <button type="submit">Выполнить</button>
+            <button type="submit">Сохранить</button>
         </div>
 
     </form>

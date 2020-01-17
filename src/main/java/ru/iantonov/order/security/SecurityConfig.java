@@ -1,6 +1,5 @@
 package ru.iantonov.order.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,12 +14,14 @@ import ru.iantonov.order.service.CustomUserDetailsService;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private CustomUserDetailsService customUserDetailsService;
+    private final CustomUserDetailsService customUserDetailsService;
+
+    public SecurityConfig(CustomUserDetailsService customUserDetailsService) {
+        this.customUserDetailsService = customUserDetailsService;
+    }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth)
-            throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authenticationProvider());
     }
 
@@ -31,12 +32,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests().antMatchers("/login", "/logout", "/registration").permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin()
-                .loginProcessingUrl("/j_spring_security_check")
+                .loginProcessingUrl("/jSecurityCheck")
                 .loginPage("/login")
                 .defaultSuccessUrl("/")
                 .failureUrl("/login?error=true")
-                .usernameParameter("j_username")
-                .passwordParameter("j_password")
+                .usernameParameter("jUsername")
+                .passwordParameter("jPassword")
                 .and().logout().logoutUrl("/logout").logoutSuccessUrl("/login")
                 .and()
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler());
